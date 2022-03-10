@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container{
+    position:relative;
+    top: 15px;
+    width:30em;
+    height:300px;
+    border: 2px solid lightgreen;
+    border-radius: 2em;
+    background: lightgreen;
+}
+.addinputcon{
+    position: relative;
+    top: 1em;
+}
+.pottask{
+    position:relative;
+    height: 2em;
+    font-family:sans-serif;
+    font-weight: bolder;
+    border-radius: 1em;
+    background-color: whitesmoke;
+}
+.add{
+    position:relative;
+    left: 50px;
+    height: 2.5em;
+    border-radius: 1em;
+    font-weight: bolder;
+    font-family: sans-serif;
+}
+.add:hover{
+    cursor: pointer;
+}
+.list{
+    position:relative;
+    top: 2em;
+    height: 200px;
+    overflow-y:scroll;
+    width: 90%;
+
+}
+.newlidiv{
+   font-family: sans-serif;
+   font-size: 1em;
+   word-wrap: break-word;
+   background-color: whitesmoke;
+   border-radius: 1em;
+   margin: 1em;
+   font-weight: bolder;
+   padding-left: 1em;
+}
+.grid{
+    display: grid;
+    grid-template-columns: 13em 10em;
+    align-items: center;
+}
+.remover{
+    padding: 1em;
+    margin: 1em;
+}
+</style>
+</head>
+<body>
+<center>
+<div class = "container">
+
+<div class = "addinputcon">
+<input class = "pottask" type = "text" placeholder = "Add Task Here..."/>
+<button class = "add">Click To Add Task</button>
+</div>
+
+<div class = "list">
+</div>
+
+</div>
+</center>
+<script>
+const userData = document.querySelector('.pottask');
+const save = document.querySelector('.add');
+const tasks = document.querySelector('.list');
+
+window.onload = function (){
+    tasks.innerHTML = localStorage.getItem('newtasks');
+    var delbutton = document.querySelectorAll('.remover');
+    for(var i = 0; i<delbutton.length; i++){
+        delbutton[i].onclick = function (){
+            this.parentNode.remove();
+            localStorage.setItem('newtasks', tasks.innerHTML);
+        
+        }
+    }
+}
+
+userData.addEventListener('keydown', (e)=>{
+    if(e.keyCode == 13){
+        if(userData.value == 0){alert('Please Enter A Task')}
+    else{tasks.innerHTML += "<div class = 'newlidiv'><center><div class='grid'>" + userData.value + "<button class = 'remover'>Remove Task</button></div></center></div>";
+    localStorage.setItem('newtasks', tasks.innerHTML);
+    
+    var delbutton = document.querySelectorAll('.remover');
+    for(var i = 0; i<delbutton.length; i++){
+        delbutton[i].onclick = function (){
+            this.parentNode.remove();
+            localStorage.setItem('newtasks', tasks.innerHTML);
+        }
+    }
+    userData.value = "";
+
+}
+    }
+})
+save.addEventListener('click', enter)
+    function enter () {
+    if(userData.value == 0){alert('Please Enter A Task')}
+    else{tasks.innerHTML += "<div class = 'newlidiv'><center><div class='grid'>" + userData.value + "<button class = 'remover'>Remove Task</button></div></center></div>";
+    localStorage.setItem('newtasks', tasks.innerHTML);
+
+    var delbutton = document.querySelectorAll('.remover');
+    for(var i = 0; i<delbutton.length; i++){
+        delbutton[i].onclick = function (){
+            this.parentNode.remove();
+            localStorage.setItem('newtasks', tasks.innerHTML);
+        }
+    }
+}
+}
+
+save.addEventListener('click', ()=>{
+userData.value = "";
+})
+
+</script>
+</body>
+</html>
